@@ -5,6 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import javax.swing.*;
 
@@ -49,23 +55,36 @@ public class Notepad extends JFrame{
 	}
 	public void loadFile(String fn) {
 		try {
-			FileReader fin = new FileReader(new File(fn));
+			Path path = Paths.get(fn);
+			FileChannel fc = FileChannel.open(path,StandardOpenOption.READ);
+			ByteBuffer buf = ByteBuffer.allocate(1024);
+			
 			ta.setText("");
 			int c=0;
-			while((c=fin.read()!=-1)) {
-				String s = String.valueOf((char)c);
-				ta.append(s);
+			while(true) {
+				c=fc.read(buf);
+				if(c==-1) break;
+				buf.flip();
+				ta.append(Charset.defaultCharset().decode(buf).toString());
+				buf.clear();
 			}
-			fin.close();
+			fc.close();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 	public void saveFile(String fn) {
 		try {
-			FileWriter ft = new FileWriter(new File(fn));
-			ft.write(ta.getText());
-			ft.close();
+			Path path = Paths.get(fn);
+			FileChannel fc = FileChannel.open(path, StandardOpenOption.WRITE,StandardOpenOption.CREATE);
+		
+			ByteBuffer buf = ByteBuffer.allocate(10240);
+			buf.put(ta.getText().getBytes());
+			buf.flip();
+			fc.write(buf);
+			buf.clear();
+			
+			fc.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
