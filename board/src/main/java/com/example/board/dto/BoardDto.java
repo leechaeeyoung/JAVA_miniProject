@@ -2,7 +2,6 @@ package com.example.board.dto;
 
 import com.example.board.domain.entity.BoardEntity;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -26,7 +25,6 @@ public class BoardDto {
                 .build();
         return boardEntity;
     }
-
 
     @Builder
     public BoardDto(Long id, String title, String content, String writer, LocalDateTime createdDate, LocalDateTime modifiedDate) {

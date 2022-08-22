@@ -1,5 +1,7 @@
 package com.example.board.domain.entity;
 
+
+import jdk.jshell.Snippet;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
