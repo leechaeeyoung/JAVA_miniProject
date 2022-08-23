@@ -1,11 +1,6 @@
 package com.example.board.domain.entity;
 
-
-import jdk.jshell.Snippet;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -19,10 +14,10 @@ public class BoardEntity extends TimeEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 20, nullable = false)
     private String writer;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 50, nullable = false)
     private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false)

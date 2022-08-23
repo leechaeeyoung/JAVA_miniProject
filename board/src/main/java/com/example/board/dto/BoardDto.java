@@ -2,6 +2,7 @@ package com.example.board.dto;
 
 import com.example.board.domain.entity.BoardEntity;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Getter
