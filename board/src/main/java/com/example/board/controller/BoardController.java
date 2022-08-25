@@ -1,10 +1,8 @@
 package com.example.board.controller;
 
-import com.example.board.Repository.BoardRepository;
 import com.example.board.dto.BoardDto;
 import com.example.board.service.BoardService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +13,23 @@ import java.util.List;
 @AllArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+
+    /* 게시글 검색 */
+    @GetMapping("/board/search")
+    public String search(@RequestParam(value = "keyword")String keyword, Model model){
+        List<BoardDto> boardDtoList = boardService.searchPosts(keyword);
+        model.addAttribute("boardList",boardDtoList);
+        return "board/list.html";
+    }
+
     /* 게시글 목록 */
     @GetMapping("/")
-    public String list(Model model) {
+    public String list(Model model, @RequestParam(value = "page",defaultValue = "1")Integer pageNum) {
         List<BoardDto> boardList = boardService.getBoardlist();
+        Integer[] pageList = boardService.getPageList(pageNum);
 
         model.addAttribute("boardList",boardList);
+        model.addAttribute("pageList",pageList);
         return "board/list.html";
     }
     /* 게시글 상세 */
