@@ -36,6 +36,11 @@
             <span th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></span>
         </td>
     </tr>
+    <div>
+        <span th:each="pageNum: ${pageList}" th:inline="text">
+            <a th:href="@{'/?page='+${pageNum}}">[[${pageNum}]]</a>
+        </span>
+    </div>
     <!-- 검색 form -->
     <form action="/board/search" method="GET">
         <div>

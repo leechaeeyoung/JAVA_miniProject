@@ -5,7 +5,6 @@ import com.example.board.domain.Repository.Repository.BoardRepository;
 import com.example.board.domain.entity.BoardEntity;
 import com.example.board.dto.BoardDto;
 import lombok.AllArgsConstructor;
-import lombok.val;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,7 +18,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class BoardService {
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
     private static final int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
     private static final int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
